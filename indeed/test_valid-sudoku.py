@@ -8,11 +8,13 @@ class Solution(object):
             uRow = {}
             uColumn = {}
             for j in range(9):
+                # row check
                 if not uRow.get(board[i][j]):
                     if board[i][j] != '.':
                         uRow[board[i][j]] = True
                 else:
                     return False
+                # col check
                 if not uColumn.get(board[j][i]):
                     if board[j][i] != '.':
                         uColumn[board[j][i]] = True

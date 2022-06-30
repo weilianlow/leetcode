@@ -1,19 +1,17 @@
+from collections import defaultdict
+
 import pytest
 
 
 class Solution(object):
     def subdomainVisits(self, cpdomains):
-        dct = dict()
+        dct = defaultdict(int)
         for cpdomain in cpdomains:
             v = cpdomain.split(' ')
             count = int(v[0])
             domains = v[1].split('.')
             for i in range(len(domains)):
-                domain = '.'.join(domains[i:])
-                if dct.get(domain, None) is not None:
-                    dct[domain] += count
-                else:
-                    dct[domain] = count
+                dct['.'.join(domains[i:])] += count
         return ['{} {}'.format(v, k) for k, v in dct.items()]
 
 
