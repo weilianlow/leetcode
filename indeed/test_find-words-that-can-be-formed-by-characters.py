@@ -1,21 +1,25 @@
 import pytest
+from collections import defaultdict
 
 
 class Solution(object):
     def countCharacters(self, words, chars):
-        total = []
+        dct = defaultdict(int)
+        for c in chars:
+            dct[c] += 1
+        count = 0
         for word in words:
-            chars_arr = list(chars)
-            match = True
-            for c in word:
-                try:
-                    chars_arr.remove(c)
-                except:
-                    match = False
+            tmp_dct = dct.copy()
+            tmp_count = 0
+            for w in word:
+                if tmp_dct.get(w, -1) <= 0:
+                    tmp_count = 0
                     break
-            if match:
-                total.append(word)
-        return len(''.join(total))
+                else:
+                    tmp_dct[w] -= 1
+                    tmp_count += 1
+            count += tmp_count
+        return count
 
 
 @pytest.mark.parametrize("words, chars, expected", [

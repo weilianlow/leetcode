@@ -5,19 +5,18 @@ class Solution:
     def checkValid(self, matrix):
         size = len(matrix)
         for i in range(size):
-            row = [v for v in range(1, size + 1)]
-            col = [v for v in range(1, size + 1)]
+            row_dct, col_dct = {}, {}
             for j in range(size):
-                try:
-                    row.remove(matrix[i][j])
-                except:
-                    pass
-                try:
-                    col.remove(matrix[j][i])
-                except:
-                    pass
-            if len(row) + len(col) > 0:
-                return False
+                val = matrix[i][j]
+                if not row_dct.get(val, False):
+                    row_dct[val] = True
+                else:
+                    return False
+                val = matrix[j][i]
+                if not col_dct.get(val, False):
+                    col_dct[val] = True
+                else:
+                    return False
         return True
 
 
